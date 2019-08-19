@@ -1,4 +1,6 @@
 *.pyc
+*.html
+*.ipynb
 process_data/dna/dna*
 process_data/dna-61-120/dna-61-120*
 process_data/letter/letter*
