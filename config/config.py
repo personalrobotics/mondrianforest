@@ -9,7 +9,6 @@ img_window_size = 5 # in pixel after down sample
 data_dir = "/home/guohaz/hard_data/Data/foods/pushing_data"
 blue_range = ([98,0,0], [250,255,255])
 cm2pixel = 410 / 18.25 # disk diameter in pixel / that in cm
-checkpoint_filename = os.path.join(data_dir, 'checkpoint.pkl')
 
 '''
 Object
@@ -31,7 +30,8 @@ action_start_pos = {0: (14,20), 90: (14,20)} # angle: (h, w)
 '''
 Model
 '''
-
-n_tree = 100
+n_tree = 50
 n_splits=5 
 test_size=0.2
+checkpoint_filename = os.path.join(data_dir, 'checkpoint.pkl')
+test_dir = os.path.join(data_dir, "result")
