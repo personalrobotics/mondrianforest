@@ -27,8 +27,6 @@ Action
 action_dir = os.path.join(data_dir, "actions")
 action_width = 2 # in pixel after down sample
 action_start_pos = {0: (14,20), 90: (14,20)} # angle: (h, w)
-<<<<<<< HEAD
-=======
 
 '''
 Model
@@ -37,4 +35,3 @@ Model
 n_tree = 100
 n_splits=5 
 test_size=0.2
->>>>>>> 624901bb4c264969813383462e136e5441f3a02a

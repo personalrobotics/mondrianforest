@@ -32,7 +32,7 @@ def process_single_trial(trial_id):
             # X_i.append(before_action[x_lo : x_hi, y_lo : y_hi])
             # X_i.append(action[x_lo : x_hi, y_lo : y_hi])
             X_i = np.append(before_action[x_lo : x_hi, y_lo : y_hi], action[x_lo : x_hi, y_lo : y_hi])
-            if np.array(X_i).shape[0] != 0:
+            if np.array(X_i).shape[0] == 50:
                 X.append(X_i)
                 y.append(after_action[i, j])
     return X, y
@@ -44,15 +44,8 @@ if __name__ == "__main__":
     else:
         forest = mondrianforest.MondrianForestClassifier(n_tree=config.n_tree)
     X, y = load_dataset()
-<<<<<<< HEAD
-    forest = mondrianforest.MondrianForestClassifier(n_tree=10)
-    cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
-    scores = cross_val_score(forest, X, y, cv=cv)
-    print(scores.mean(), scores.std())
-=======
     cv = ShuffleSplit(n_splits=config.n_splits, test_size=config.test_size, random_state=0)
     scores = cross_val_score(forest, X, y, cv=cv) 
     print(scores.mean(), scores.std())
     with open(config.checkpoint_filename, 'w') as ckpt:
         pickle.dumps(forest, ckpt)
->>>>>>> 624901bb4c264969813383462e136e5441f3a02a
