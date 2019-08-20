@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append("/Users/kyleghz/GitHub-Workspace/mondrianforest")
+sys.path.append("/home/guohaz/rf/mondrianforest")
 import numpy as np
 from config import config
 
@@ -42,5 +42,5 @@ if __name__ == "__main__":
     X, y = load_dataset()
     forest = mondrianforest.MondrianForestClassifier(n_tree=10)
     cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
-    scores = cross_val_score(forest, X, y, cv=cv) 
+    scores = cross_val_score(forest, X, y, cv=cv)
     print(scores.mean(), scores.std())

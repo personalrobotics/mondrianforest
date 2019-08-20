@@ -6,7 +6,7 @@ import os
 General
 '''
 img_window_size = 5 # in pixel after down sample
-data_dir = "/Users/kyleghz/Downloads/pushing_data"
+data_dir = "/home/guohaz/hard_data/Data/foods/pushing_data"
 blue_range = ([98,0,0], [250,255,255])
 cm2pixel = 410 / 18.25 # disk diameter in pixel / that in cm
 
