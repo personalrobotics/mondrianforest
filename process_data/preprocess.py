@@ -109,8 +109,8 @@ def convert_imgs(trial_id, dist, angle):
     
     # Create image
     action_img, distance = create_action_img(dim, dist, angle)
-    before_action_img = create_obj_img(start_img, dim, angle, distance)
-    after_action_img = create_obj_img(finish_img, dim, angle, distance)
+    before_action_img = create_obj_img(start_img, dim, angle, distance)[:,:,0]
+    after_action_img = create_obj_img(finish_img, dim, angle, distance)[:,:,0]
     
     # Store image
 #     cv2.imwrite(os.path.join(config.action_dir, trial_i+'_action.png'), action_img)
@@ -156,4 +156,14 @@ main()
 # plt.imshow(result)
 # plt.title('Downsize first')
 # plt.show()
+
+
+action = np.load(os.path.join(config.action_dir, '0000_action.npy'))
+before_action = np.load(os.path.join(config.obj_dir, '0000_before.npy'))
+after_action = np.load(os.path.join(config.obj_dir, '0000_after.npy'))
+
+
+plt.imshow(before_action)
+plt.title('before_action')
+plt.show()
 
