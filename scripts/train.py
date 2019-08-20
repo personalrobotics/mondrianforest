@@ -12,7 +12,7 @@ from sklearn.model_selection import cross_val_score, ShuffleSplit
 if __name__ == "__main__":
     if os.path.exists(config.checkpoint_filename):
         print('Load saved checkpoint: {}'.format(config.checkpoint_filename))
-        with open(config.checkpoint_filename, 'r') as ckpt:
+        with open(config.checkpoint_filename, 'rb') as ckpt:
             forest = pickle.load(ckpt) 
     else:
         forest = mondrianforest.MondrianForestClassifier(n_tree=config.n_tree)
@@ -20,5 +20,5 @@ if __name__ == "__main__":
     cv = ShuffleSplit(n_splits=config.n_splits, test_size=config.test_size, random_state=0)
     scores = cross_val_score(forest, X, y, cv=cv)
     print(scores.mean(), scores.std())
-    with open(config.checkpoint_filename, 'w') as ckpt:
+    with open(config.checkpoint_filename, 'wb') as ckpt:
         pickle.dump(forest, ckpt)
