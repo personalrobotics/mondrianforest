@@ -9,6 +9,7 @@ img_window_size = 5 # in pixel after down sample
 data_dir = "/Users/kyleghz/Downloads/pushing_data"
 blue_range = ([98,0,0], [250,255,255])
 cm2pixel = 410 / 18.25 # disk diameter in pixel / that in cm
+checkpoint_filename = os.path.join(data_dir, 'checkpoint.pkl')
 
 '''
 Object
@@ -26,3 +27,11 @@ Action
 action_dir = os.path.join(data_dir, "actions")
 action_width = 2 # in pixel after down sample
 action_start_pos = {0: (14,20), 90: (14,20)} # angle: (h, w)
+
+'''
+Model
+'''
+
+n_tree = 100
+n_splits=5 
+test_size=0.2
