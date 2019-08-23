@@ -30,7 +30,7 @@ action_start_pos = {0: (14,20), 90: (14,20)} # angle: (h, w)
 '''
 Model
 '''
-n_tree = 100
+n_tree = 30
 n_splits=5
 test_size=0.2
 checkpoint_filename = os.path.join(data_dir, 'checkpoint.pkl')
