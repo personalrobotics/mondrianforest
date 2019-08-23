@@ -17,6 +17,7 @@ if __name__ == "__main__":
     else:
         forest = mondrianforest.MondrianForestClassifier(n_tree=config.n_tree)
     X, y = load_pushing_data.load_dataset()
+    print("Finished loading the data")
     cv = ShuffleSplit(n_splits=config.n_splits, test_size=config.test_size, random_state=0)
     scores = cross_val_score(forest, X, y, cv=cv)
     print(scores.mean(), scores.std())
