@@ -24,7 +24,7 @@ def process_single_trial(trial_id, obj_dir, action_dir, test):
         after_action = np.load(os.path.join(obj_dir, trial_id+'_after.npy'))
     for i in range(before_action.shape[0]):
         for j in range(before_action.shape[1]):
-            if action[i,j] == 1:
+            if action[i,j] != 0:
                 x_lo, x_hi = i - kernel_size, i + kernel_size + 1
                 y_lo, y_hi = j - kernel_size, j + kernel_size + 1
                 # X_i = []
