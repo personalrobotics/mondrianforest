@@ -6,7 +6,7 @@ from config import config
 from process_data import preprocess, load_pushing_data
 import pickle
 import cv2
-import cPickle
+import mondrianforest
 
 
 def load_img():
@@ -58,24 +58,24 @@ def predict(action_img, forest, X):
 
 
 def generate_estimation(obj_img, action_img, after_action_img):
-    x_lo, x_hi, y_lo, y_hi = (230, 270, 390, 450)
-    obj_color = np.average(obj_img[x_lo: x_hi, y_lo : y_hi], axis=0)
+    x_lo, x_hi, y_lo, y_hi = (230, 270, 390, 450) # Location to extract mashed potato color
+    obj_color = [156,228,246] #np.average(np.sum(obj_img[x_lo: x_hi, y_lo : y_hi], axis = 0), axis=0)
     for i in range(action_img.shape[0]):
         for j in range(action_img.shape[1]):
-            if action_img[i,j] == 1: # The pixel need to be updated
+            if action_img[i,j] != 0: # The pixel need to be updated
                 if after_action_img[i,j] == 1: # has mashed potato after pushing
-                    obj_img[i * config.obj_downsize_length : (i+1) * onfig.obj_downsize_length, \
-                            j * config.obj_downsize_length :  (j+1) * onfig.obj_downsize_length] = obj_color[:]
+                    obj_img[i * config.obj_downsize_length : (i+1) * config.obj_downsize_length, \
+                            j * config.obj_downsize_length :  (j+1) * config.obj_downsize_length] = obj_color[:]
                 else: # no mashed potato after pushing, fill with dish color
-                    obj_img[i * config.obj_downsize_length : (i+1) * onfig.obj_downsize_length, \
-                            j * config.obj_downsize_length :  (j+1) * onfig.obj_downsize_length] = config.blue_range[1]
+                    obj_img[i * config.obj_downsize_length : (i+1) * config.obj_downsize_length, \
+                            j * config.obj_downsize_length :  (j+1) * config.obj_downsize_length] = [162,100,0]
     return obj_img
 
 if __name__ == "__main__":
     if os.path.exists(config.checkpoint_filename):
         print('Load saved checkpoint: {}'.format(config.checkpoint_filename))
         with open(config.checkpoint_filename, 'rb') as forest_ckpt:
-            forest = cPickle.load(forest_ckpt)
+            forest = pickle.load(forest_ckpt)
     else:
         print('No model exist!')
         os._exit(1)

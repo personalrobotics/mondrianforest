@@ -167,3 +167,97 @@ plt.imshow(before_action)
 plt.title('before_action')
 plt.show()
 
+
+# import pickle
+# import mondrianforest
+# from sklearn.model_selection import cross_val_score, ShuffleSplit
+# img = cv2.imread(os.path.join("/Users/kyleghz/Downloads/pushing_data/images/0000_1_start.png"))
+# with open("/Users/kyleghz/Downloads/pushing_data/bags/distance.json", 'r') as distFile:
+#         dist_info = json.load(distFile)
+
+# trial_id = 0
+# trial_i = "{0:0=4d}".format(trial_id)
+    
+# # Get down_sized dim
+# width = int(img.shape[1] / config.obj_downsize_length)
+# height = int(img.shape[0] / config.obj_downsize_length)
+# dim = (width, height)
+
+# # Create image
+# angle = 0
+# action_img, distance = create_action_img(dim, dist_info["0"], angle)
+# before_action_img = create_obj_img(img, dim, angle, distance)[:,:,0]
+
+# X = process_single_trial(before_action_img, action_img)
+# with open("/Users/kyleghz/Desktop/checkpoint.pkl", 'rb') as ckpt:
+#             forest = pickle.load(ckpt) 
+
+
+# sample_x = np.array(X) 
+# # print(sample_x.shape)
+# after_action_img = predict(action_img, forest, sample_x)
+# estimated_img = generate_estimation(img, action_img, after_action_img)
+# # cv2.imwrite('/Users/kyleghz/Desktop/after_action.png', estimated_img)
+
+
+# def predict(action_img, forest, X):
+#     after_action_img = np.zeros(action_img.shape)
+
+#     # For train on entire image 
+#     # id = 0
+    
+#     for i in range(0, action_img.shape[0]):
+#         for j in range(0, action_img.shape[1]):
+#             if forest.predict_proba(X[id])[1] > 0.5:
+#                 after_action_img[i,j] = 1
+#             id += 1
+
+#     # For only train on action, and predict on action
+# #     id = 0
+# #     for i in range(action_img.shape[0]):
+# #         for j in range(action_img.shape[1]):
+# #             if action_img[i,j] == 1:
+# #                 if forest.predict_proba(X[id])[1] > 0.5:
+# #                     after_action_img[i,j] = 1
+# #                     id += 1
+#     return after_action_img
+
+
+# def generate_estimation(obj_img, action_img, after_action_img):
+#     x_lo, x_hi, y_lo, y_hi = (220, 360, 240, 380)
+#     obj_color = [156,228,246]#np.average(np.sum(obj_img[x_lo: x_hi, y_lo : y_hi], axis = 0), axis=0)
+#     for i in range(action_img.shape[0]):
+#         for j in range(action_img.shape[1]):
+#             if action_img[i,j] != 0: # The pixel need to be updated
+#                 if after_action_img[i,j] == 1: # has mashed potato after pushing
+#                     obj_img[i * 20 : (i+1) * 20, \
+#                             j * 20 :  (j+1) * 20] = obj_color[:]
+#                 else: # no mashed potato after pushing, fill with dish color
+#                     obj_img[i * 20 : (i+1) * 20, \
+#                             j * 20:  (j+1) * 20] = [162,100,0]
+#     return obj_img
+
+
+# def process_single_trial(before_action, action):
+#     X = []
+#     img_window_size = 5
+#     kernel_size = int(img_window_size / 2)
+#     x_bound, y_bound = action.shape
+#     for i in range(before_action.shape[0]):
+#         for j in range(before_action.shape[1]):
+#             if action[i,j] != 0:
+#                 befact_ij = np.zeros((img_window_size, img_window_size))
+#                 action_ij = np.zeros((img_window_size, img_window_size))
+#                 x_lo, x_hi = max(0, i-kernel_size), min(x_bound, i+kernel_size+1) 
+#                 y_lo, y_hi = max(0, j-kernel_size), min(y_bound, j+kernel_size+1) 
+#                 # X_i = []
+#                 # X_i.append(before_action[x_lo : x_hi, y_lo : y_hi])
+#                 # X_i.append(action[x_lo : x_hi, y_lo : y_hi])
+#                 befact_ij[(x_lo-i)+kernel_size:(x_hi-i)+kernel_size, (y_lo-j)+kernel_size:(y_hi-j)+kernel_size] \
+#                  = before_action[x_lo : x_hi, y_lo : y_hi]
+#                 action_ij[(x_lo-i)+kernel_size:(x_hi-i)+kernel_size, (y_lo-j)+kernel_size:(y_hi-j)+kernel_size] \
+#                  = action[x_lo : x_hi, y_lo : y_hi]
+#                 X_i = np.append(befact_ij, action_ij)
+#                 X.append(X_i)
+#     return X
+
