@@ -37,23 +37,22 @@ def predict(action_img, forest, X):
     after_action_img = np.zeros(action_img.shape)
 
     # For train on entire image 
-    # Current dont predict the pixel on the edge
-    id = 0
+    # id = 0
     
-    for i in range(2, action_img.shape[0]-2):
-        for j in range(2, action_img.shape[1]-2):
-            if forest.predict_proba(X[id])[1] > 0.5:
-                after_action_img[i,j] = 1
-            id += 1
+    # for i in range(0, action_img.shape[0]):
+    #     for j in range(0, action_img.shape[1]):
+    #         if forest.predict_proba(X[id])[1] > 0.5:
+    #             after_action_img[i,j] = 1
+    #         id += 1
 
     # For only train on action, and predict on action
-    # id = 0
-    # for i in range(action_img.shape[0]):
-    #     for j in range(action_img.shape[1]):
-    #         if action_img[i,j] == 1:
-    #             if forest.predict_proba(X[id])[1] > 0.5:
-    #                 after_action_img[i,j] = 1
-    #             id += 1
+    id = 0
+    for i in range(action_img.shape[0]):
+        for j in range(action_img.shape[1]):
+            if action_img[i,j] != 0:
+                if forest.predict_proba(X[id])[1] > 0.5:
+                    after_action_img[i,j] = 1
+                id += 1
     return after_action_img
 
 
