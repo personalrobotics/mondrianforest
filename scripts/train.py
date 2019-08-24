@@ -5,6 +5,7 @@ import numpy as np
 from config import config
 from process_data import load_pushing_data
 import pickle
+import cPickle
 
 import mondrianforest
 from sklearn.model_selection import cross_val_score, ShuffleSplit
@@ -21,5 +22,6 @@ if __name__ == "__main__":
     cv = ShuffleSplit(n_splits=config.n_splits, test_size=config.test_size, random_state=0)
     scores = cross_val_score(forest, X, y, cv=cv)
     print(scores.mean(), scores.std())
+    # MondrianForestClassifier.__module__= mondrianforest
     with open(config.checkpoint_filename, 'wb') as ckpt:
-        pickle.dump(forest, ckpt)
+        cPickle.dump(forest, ckpt)

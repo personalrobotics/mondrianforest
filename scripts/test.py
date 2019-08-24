@@ -6,6 +6,7 @@ from config import config
 from process_data import preprocess, load_pushing_data
 import pickle
 import cv2
+import cPickle
 
 
 def load_img():
@@ -73,7 +74,8 @@ def generate_estimation(obj_img, action_img, after_action_img):
 if __name__ == "__main__":
     if os.path.exists(config.checkpoint_filename):
         print('Load saved checkpoint: {}'.format(config.checkpoint_filename))
-        forest = pickle.load(config.checkpoint_filename)
+        with open(config.checkpoint_filename, 'rb') as forest_ckpt:
+            forest = cPickle.load(forest_ckpt)
     else:
         print('No model exist!')
         os._exit(1)
